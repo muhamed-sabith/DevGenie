@@ -1,12 +1,12 @@
 import streamlit as st
 import ollama
 
-# Set page configuration
-st.set_page_config(page_title="DevGenie - AI Academic Assistant")
+# Page config
+st.set_page_config(page_title="DevGenie - AI Academic Assistant", layout="wide")
 
-# App Title
+# Title
 st.title("🚀 DevGenie - AI Academic Assistant")
-st.write("Generate structured academic project ideas using Local LLM (Mistral)")
+st.markdown("Generate structured academic project ideas using a Local LLM (Mistral)")
 
 # Sidebar Feature Selection
 feature = st.sidebar.selectbox(
@@ -18,26 +18,37 @@ feature = st.sidebar.selectbox(
     ]
 )
 
-# User Inputs
-domain = st.selectbox(
-    "Select Domain",
-    ["Data Science", "Machine Learning", "Web Development", "Cyber Security"]
-)
+col1, col2, col3 = st.columns(3)
 
-level = st.selectbox(
-    "Skill Level",
-    ["Beginner", "Intermediate", "Advanced"]
-)
+with col1:
+    domain = st.selectbox(
+        "Select Domain",
+        [
+            "Data Science",
+            "Machine Learning",
+            "Web Development",
+            "Cyber Security",
+            "MERN Stack",
+            "Android Development",
+            "Cloud Computing",
+            "Artificial Intelligence"
+        ]
+    )
 
-duration = st.selectbox(
-    "Project Duration",
-    ["1 Week", "2 Weeks", "1 Month"]
-)
+with col2:
+    level = st.selectbox(
+        "Skill Level",
+        ["Beginner", "Intermediate", "Advanced"]
+    )
 
+with col3:
+    duration = st.selectbox(
+        "Project Duration",
+        ["1 Week", "2 Weeks", "1 Month"]
+    )
 # Generate Button
 if st.button("Generate"):
 
-    # Prompt Engineering
     if feature == "Project Idea Generator":
         prompt = f"""
         Generate a structured academic project idea in {domain}.
@@ -64,12 +75,13 @@ if st.button("Generate"):
         for a {domain} project suitable for {level} level.
         """
 
-    # Call Local LLM
-    response = ollama.chat(
-        model="mistral",
-        messages=[{"role": "user", "content": prompt}]
-    )
+    # Spinner (Professional UX)
+    with st.spinner("Generating using Local LLM..."):
+        response = ollama.chat(
+            model="mistral",
+            messages=[{"role": "user", "content": prompt}]
+        )
 
-    # Display Output
-    st.subheader("Generated Output")
-    st.write(response['message']['content'])
+    # Output Section
+    st.subheader("📌 Generated Output")
+    st.markdown(response['message']['content'])
