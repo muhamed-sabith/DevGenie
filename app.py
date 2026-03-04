@@ -13,7 +13,6 @@ feature = st.sidebar.selectbox(
     "Choose Feature",
     [
         "Project Idea Generator",
-        "Resume Description Generator",
         "Viva Questions Generator"
     ]
 )
