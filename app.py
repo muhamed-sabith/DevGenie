@@ -12,8 +12,7 @@ st.markdown("Generate structured academic project ideas using a Local LLM (Mistr
 feature = st.sidebar.selectbox(
     "Choose Feature",
     [
-        "Project Idea Generator",
-        "Viva Questions Generator"
+        "Project Idea Generator"
     ]
 )
 
